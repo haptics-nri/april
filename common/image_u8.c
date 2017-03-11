@@ -78,40 +78,6 @@ image_u8_t *image_u8_create_alignment(unsigned int width, unsigned int height, u
     return im;
 }
 
-image_u8_t *image_u8_create_from_rgb3(int width, int height, uint8_t *rgb, int stride)
-{
-    image_u8_t *im = image_u8_create(width, height);
-
-    for (int y = 0; y < im->height; y++) {
-        for (int x = 0; x < im->width; x++) {
-            int r = rgb[                 x*height + y];
-            int g = rgb[  width*height + x*height + y];
-            int b = rgb[2*width*height + x*height + y];
-
-            int gray = (int) (0.6*g + 0.3*r + 0.1*b);
-            if (gray > 255)
-                gray = 255;
-
-            im->buf[y*im->stride + x] = gray;
-        }
-    }
-
-    return im;
-}
-
-image_u8_t *image_u8_create_from_gray(int width, int height, uint8_t *gray)
-{
-    image_u8_t *im = image_u8_create(width, height);
-
-    for (int y = 0; y < im->height; y++) {
-        for (int x = 0; x < im->width; x++) {
-            im->buf[y*im->stride + x] = gray[x*height + y];
-        }
-    }
-
-    return im;
-}
-
 image_u8_t *image_u8_copy(const image_u8_t *in)
 {
     uint8_t *buf = malloc(in->height*in->stride*sizeof(uint8_t));
