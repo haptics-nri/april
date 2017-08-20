@@ -163,6 +163,19 @@ image_u8_t *image_u8_create_from_f32(image_f32_t *fim)
     return im;
 }
 
+image_u8_t *image_u8_create_from_gray(int w, int h, uint8_t *image_matrix)
+{
+    image_u8_t *im = image_u8_create(w, h);
+
+    for (int y = 0; y < h; y++) {
+        for (int x = 0; x < w; x++) {
+            im->buf[y*im->stride + x] = image_matrix[y*im->stride + x];
+        }
+    }
+
+    return im;
+}
+
 
 int image_u8_write_pnm(const image_u8_t *im, const char *path)
 {

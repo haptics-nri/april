@@ -4,4 +4,6 @@
 *.mat
 *.swp
 *.swo
-
+bin/
+*.sublime-project
+*.sublime-workspace
